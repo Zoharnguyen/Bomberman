@@ -1,0 +1,5 @@
+0:1:2:100:/images/monster_2.png
+0:110:2:0:/images/monster_2.png
+0:220:2:350:/images/monster_2.png
+0:330:2:500:/images/monster_2.png
+0:440:2:700:/images/monster_2.png
