@@ -40,7 +40,7 @@ public class BombServiceImpl implements BombService {
 
 		if (bomber.getBomb().getTimeLinebang() == 0 && bomber.getBomb().getTimeLine() == 0) {
 			gameSound.getAudio(gameSound.BOMB).play();
-			bomber.getBomb().setTimeLine(100);
+			bomber.getBomb().setTimeLine(150);
 			if (bomber.getStatus() == LEFT) {
 				bomber.getBomb().setX(bomber.getX() - 50);
 				bomber.getBomb().setY(bomber.getY() + 10);

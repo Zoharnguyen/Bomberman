@@ -32,34 +32,44 @@ public class GeneralServiceImpl implements GeneralService {
 	private final int HEART = 1;
 	private final int SCORE = 2;
 	private final int FIRE = 3;
-	private final int RANDOM = 4;	
+	private final int RANDOM = 4;
 
 	@Override
 	public void drawBackground(Graphics2D g2d) {
 		g2d.drawImage(new ImageIcon(getClass().getResource("/images/background.jpg")).getImage(), 0, -300, null);
 	}
-	
+
 	@Override
 	public void drawRound2(Graphics2D g2d, Bomber bomber) {
-		if(bomber.getROUND() == 2 && bomber.getTimelineRound() > 0) {
+		if (bomber.getROUND() == 2 && bomber.getTimelineRound() > 0) {
 			g2d.drawImage(new ImageIcon(getClass().getResource("/images/round_2.png")).getImage(), 200, 200, null);
 		}
 	}
-	
+
 	@Override
 	public void drawWin(Graphics2D g2d, Bomber bomber) {
-		if(bomber.getWIN() == 1 && bomber.getTimelineFinish() > 0) {
-			g2d.drawImage(new ImageIcon(getClass().getResource("/images/win.jpg")).getImage(), -150, 50, null);	
+		if (bomber.getWIN() == 1 && bomber.getTimelineFinish() > 0) {
+			g2d.drawImage(new ImageIcon(getClass().getResource("/images/win.jpg")).getImage(), -150, 50, null);
 		}
 	}
-	
+
 	@Override
 	public void drawLost(Graphics2D g2d, Bomber bomber) {
-		if(bomber.getLOST() == 1) {
-			g2d.drawImage(new ImageIcon(getClass().getResource("/images/gameover.jpg")).getImage(), 100, 100, null);		
+		if (bomber.getLOST() == 1) {
+			g2d.drawImage(new ImageIcon(getClass().getResource("/images/gameover.jpg")).getImage(), 100, 100, null);
 		}
 	}
 	
+	@Override 
+	public void drawTimeLineRound2(Graphics2D g2d, Bomber bomber) {
+		if(bomber.getDeadlineRound2() > 0) {
+			g2d.drawImage(new ImageIcon(getClass().getResource("/images/timeline.png")).getImage(), 300, 0, null);
+			g2d.setFont(new Font("Arial", Font.BOLD, 20));
+			g2d.setColor(Color.RED);
+			g2d.drawString(bomber.getDeadlineRound2() + "", 355, 50);
+		}
+	}
+
 	@Override
 	public void drawInfo(Graphics2D g2d, Bomber bomber) {
 		Image imgInfor = new ImageIcon(getClass().getResource("/images/background_info.jpg")).getImage();
@@ -138,8 +148,8 @@ public class GeneralServiceImpl implements GeneralService {
 		FileWriter fr = null;
 		try {
 			fr = new FileWriter(path);
-			for (int i = 0; i < stringList.size() -1; i++) {
-				fr.write(stringList.get(i)+ "\n");
+			for (int i = 0; i < stringList.size() - 1; i++) {
+				fr.write(stringList.get(i) + "\n");
 			}
 			fr.write(stringList.get(stringList.size() - 1));
 
@@ -175,23 +185,23 @@ public class GeneralServiceImpl implements GeneralService {
 			arr[k] = Integer.parseInt(nameScore[1]);
 			k++;
 		}
-		while(j < k) {
-			if(score < arr[j]) {
+		while (j < k) {
+			if (score < arr[j]) {
 				break;
 			} else {
 				j++;
 			}
 		}
-		return stringList.size() -1 - j;
+		return stringList.size() - 1 - j;
 	}
 
 	@Override
 	public List<String> addContent(List<String> stringList, String content, int index) {
 		List<String> temp = new ArrayList<String>();
-		if(index == -1) {
+		if (index == -1) {
 			temp.add(content);
 		}
-		if(index > -1) {
+		if (index > -1) {
 			for (int i = 0; i < stringList.size() - 1; i++) {
 				temp.add(stringList.get(i));
 				if (i == index) {
@@ -205,5 +215,5 @@ public class GeneralServiceImpl implements GeneralService {
 		}
 		return temp;
 	}
-	
+
 }

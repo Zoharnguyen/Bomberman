@@ -100,17 +100,18 @@ public class Play extends JPanel implements Runnable, ActionListener {
 		g2d.setStroke(new java.awt.BasicStroke(2));
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 //		generalService.drawBackground(g2d);
-		itemService.drawItem(itemList, g2d);
-		bombService.drawBomb(bomber.getBomb(), g2d);
 		bomberService.drawBomber(bomber, g2d);
+		itemService.drawItem(itemList, g2d);
+		bombService.drawBomb(bomber.getBomb(), g2d);		
 		wallService.drawAllWall(wallList, g2d);
 		boxService.drawAllBox(boxList, g2d);
-		monsterService.drawAllMonters(monsterList, g2d);
+		monsterService.drawAllMonters(monsterList, g2d);		
 		bombService.drawAllBang(bomber.getBomb(), g2d);
 		bombService.itemFire(bomber.getItem(), bomber.getBomb(), g2d, boxList, bomber);
 		generalService.drawWin(g2d, bomber);
 		generalService.drawInfo(g2d, bomber);
 		generalService.drawRound2(g2d, bomber);
+		generalService.drawTimeLineRound2(g2d, bomber);
 		generalService.drawLost(g2d, bomber);
 	}
 
@@ -222,13 +223,13 @@ public class Play extends JPanel implements Runnable, ActionListener {
 					wallList = wallService.getListWall(2);
 					monsterList = monsterService.getAllMonster(2);
 					itemList = itemService.getListItem(2);
-
 					bomber.setROUND(2);
+					bomber.setDeadlineRound2(4000);
 				}
 			}
 			if (bomber.getTimelineFinish() > 0) {
 				bomber.setTimelineFinish(bomber.getTimelineFinish() - 1);
-				if (bomber.getTimelineFinish() == 0 || bomber.getHEART() <=0) {
+				if (bomber.getTimelineFinish() == 0 || bomber.getHEART() <= 0) {
 					bomber = new Bomber(0, 545, 0, new Bomb(), container.getGui().getNamePlayer());
 					container.getGui().setRound(1);
 					boxList = boxService.getListBox(1);
@@ -243,8 +244,14 @@ public class Play extends JPanel implements Runnable, ActionListener {
 					}
 					container.setShowMenu();
 				}
-			}
-
+			} 
+			if (bomber.getDeadlineRound2() > 0) {
+				bomber.setDeadlineRound2(bomber.getDeadlineRound2() - 1);
+				if (bomber.getDeadlineRound2() == 0) {
+					bomber.setLOST(1);
+					bomber.setTimelineFinish(500);
+				}
+			}			
 			if (bomber.getHEART() <= 0 && bomber.getTimelineFinish() == 0 && monsterList.size() > 0) {
 				bomber.setLOST(1);
 				bomber.setTimelineFinish(500);

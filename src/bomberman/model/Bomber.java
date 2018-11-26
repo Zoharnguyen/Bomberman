@@ -11,10 +11,11 @@ public class Bomber extends Figure {
 	private int ROUND = 1;
 	private int timelineRound = 0;
 	private int timelineFinish = 0;
+	private int deadlineRound2 = 0;
 	private Bomb bomb;
 	private int status;
 	private Item item;
-	private int score = 7;
+	private int score = 0;
 	private String name = "Peter";
 
 	public Bomber(int x, int y, int DEAD, Bomb bomb, String namePlayer) {
@@ -124,6 +125,14 @@ public class Bomber extends Figure {
 
 	public void setTimelineFinish(int timelineFinish) {
 		this.timelineFinish = timelineFinish;
+	}
+
+	public int getDeadlineRound2() {
+		return deadlineRound2;
+	}
+
+	public void setDeadlineRound2(int deadlineRound2) {
+		this.deadlineRound2 = deadlineRound2;
 	}
 
 }

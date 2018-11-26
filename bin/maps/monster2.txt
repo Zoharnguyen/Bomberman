@@ -1,11 +1,4 @@
-0:1:2:100:/images/monster_2.png
 0:110:2:0:/images/monster_2.png
+399:0:2:700:/images/monster_2.png
 0:220:2:350:/images/monster_2.png
 0:330:2:500:/images/monster_2.png
-0:440:2:700:/images/monster_2.png
-500:220:2:350:/images/monster_2.png
-500:330:2:500:/images/monster_2.png
-500:600:2:700:/images/monster_2.png
-500:100:2:350:/images/monster_2.png
-300:600:2:500:/images/monster_2.png
-399:0:2:700:/images/monster_2.png

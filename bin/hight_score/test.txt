@@ -1,5 +1,12 @@
-Zohar Nguyen : 10
-Quang Trung : 9
-Zohar Nguyen  : 7
-Susan : 3
+Zohar Nguyen : 30
+Quang Trung : 25
+Zohar Nguyen  : 24
+Susan : 21
+John : 17
+Zohar Nguyen : 15
+Quang Trung : 15
+Zohar Nguyen  : 11
+Susan : 9
+John : 7
+Susan : 4
 John : 2

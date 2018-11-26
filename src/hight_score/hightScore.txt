@@ -1,10 +1,11 @@
-Zohar Nguyen : 29
-Quang Trung : 23
-Zohar Nguyen  : 21
-Susan : 19
-Fray : 12
-susan : 10
-Zohar Nguyen : 10
-Quang Trung : 9
-Pan : 7
-John Wick : 7
+Zohar Nguyen : 30
+Quang Trung : 25
+Zohar Nguyen  : 24
+Susan : 21
+John : 17
+Zohar Nguyen : 15
+Quang Trung : 15
+Zohar Nguyen  : 11
+Susan : 9
+John : 7
+Susan : 4
