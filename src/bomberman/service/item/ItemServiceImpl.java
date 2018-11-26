@@ -64,8 +64,8 @@ public class ItemServiceImpl implements ItemService {
 		int i = 0;
 		for (i = 0; i < itemList.size(); i++ ) {
 			Item item = itemList.get(i);
-			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth(), bomber.getHeight());
-			Rectangle rec2 = new Rectangle(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth()-30, bomber.getHeight()-30);
+			Rectangle rec2 = new Rectangle(item.getX(), item.getY(), item.getWidth()-30, item.getHeight()-30);
 			if (rec1.intersects(rec2) == true) {
 				gameSound.getAudio(gameSound.ITEM).play();
 				item.setTimeline(1000);

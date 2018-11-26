@@ -15,6 +15,7 @@ public class Container extends JPanel {
 	private Play play;
 	private Menu menu;
 	private HightScore hightScore;
+	private NamePlayer namePlayer;
 	private GeneralService generalService = new GeneralServiceImpl();
 	private GameSound gameSound = new GameSound();
 	
@@ -23,13 +24,16 @@ public class Container extends JPanel {
 		setBackground(Color.WHITE);
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
+		namePlayer = new NamePlayer(this);
+		add(namePlayer, "NAMEPLAYER");
 		menu = new Menu(this);
 		add(menu, "MENU");
 		play = new Play(this);
 		add(play, "PLAY");
 		hightScore = new HightScore(this);
 		add(hightScore, "HIGHTSCORE");
-		setShowMenu();
+//		setShowMenu();
+		setShowNamePlayer();
 	}
 
 	public void setShowPlay() {
@@ -46,6 +50,10 @@ public class Container extends JPanel {
 		gameSound.stop();
 		gameSound.getAudio(gameSound.MENU).loop();
 	}
+	public void setShowNamePlayer() {
+		cardLayout.show(this, "NAMEPLAYER");
+		namePlayer.requestFocus();
+	}
 	public void setShowHighScore() {
 		cardLayout.show(this, "HIGHTSCORE");
 		hightScore.jlHightScore.setText(generalService.convertStandardLable(generalService.readFile("s"
@@ -53,6 +61,11 @@ public class Container extends JPanel {
 		hightScore.requestFocus();
 	}
 
+	public void exit() {
+		gameSound.stop();
+		gui.dispose();
+	}
+	
 	public GUI getGui() {
 		return gui;
 	}

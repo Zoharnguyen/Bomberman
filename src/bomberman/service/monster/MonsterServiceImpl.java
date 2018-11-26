@@ -95,11 +95,13 @@ public class MonsterServiceImpl implements MonsterService {
 					}
 					if (bomberService.move(monsterList.get(i), monsterList.get(i).getStatus(), wallList, boxList,
 							bomb, monsterList) == false) {
-						Random random = new Random();
+						
 						int status = 0;
 						if(bomber.getROUND() == 1) {
+							Random random = new Random();
 							status = 1 + random.nextInt(2);	
 						} else {
+							Random random = new Random();
 							status = 1 + random.nextInt(4);
 						}
 						monsterList.get(i).setStatus(status);

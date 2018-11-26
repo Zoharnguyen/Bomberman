@@ -2,17 +2,16 @@ package bomberman.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 class Test {
 	public static void main(String[] args) {
-		List<String> list = new ArrayList<String>();
-		list.add("0");
-		list.add("1");
-		list.add("2");
-		list.add("3");
-//		list.set(1, "temp");
-		for(String string : list) {
-			System.out.println(string);
-		}
+		int [] arr = new int [100];
+		Random random = new Random(System.currentTimeMillis());
+		int status = 1 + random.nextInt(4);
+		System.out.println(status);
+		Random random1 = new Random();
+		int status1 = 1 + random1.nextInt(4);
+		System.out.println(status1);
 	}
 }

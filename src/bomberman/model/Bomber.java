@@ -14,10 +14,10 @@ public class Bomber extends Figure {
 	private Bomb bomb;
 	private int status;
 	private Item item;
-	private int score = 0;
+	private int score = 7;
 	private String name = "Peter";
 
-	public Bomber(int x, int y, int DEAD, Bomb bomb) {
+	public Bomber(int x, int y, int DEAD, Bomb bomb, String namePlayer) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -27,6 +27,7 @@ public class Bomber extends Figure {
 		this.height = img.getHeight(null);
 		this.bomb = bomb;
 		this.item = new Item(-100, 700, 4);
+		this.name = namePlayer;
 	}
 
 	public int getHEART() {

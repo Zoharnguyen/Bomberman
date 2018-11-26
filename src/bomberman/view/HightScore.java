@@ -34,7 +34,7 @@ public class HightScore extends JPanel implements ActionListener{
 		jlHightScore = new JLabel();
 		jlBackground.setBounds(0, 0, gui.getWidth(), gui.getHeight());
 		jlBackground.setIcon(new ImageIcon(getClass().getResource("/images/background_hightScore.jpg")));
-		jlHightScore.setBounds((gui.getWidth()-150)/2-30, (gui.getHeight()-30)/2-400, 500, 700);
+		jlHightScore.setBounds((gui.getWidth()-150)/2-70, (gui.getHeight()-30)/2-320, 500, 700);
 		jlHightScore.setFont(new Font("Arial", Font.BOLD, 30));
 		jlHightScore.setText(generalService.convertStandardLable(generalService.readFile("src/hight_score/hightScore.txt")));
 		add(jlHightScore);

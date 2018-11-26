@@ -56,18 +56,22 @@ public class Play extends JPanel implements Runnable, ActionListener {
 	private WallService wallService = new WallServiceImpl();
 	private BoxService boxService = new BoxServiceImpl();
 	private GeneralService generalService = new GeneralServiceImpl();
-	private BombService bombService = new BombServiceImpl();	
-	private ItemService itemService = new ItemServiceImpl();	
+	private BombService bombService = new BombServiceImpl();
+	private ItemService itemService = new ItemServiceImpl();
 	private int round = 1;
 	private List<Box> boxList;
 	private List<Wall> wallList;
 	private List<Monster> monsterList;
 	private List<Item> itemList;
 	private List<String> hightScore = generalService.readFile("src/hight_score/hightScore.txt");
-	private Bomber bomber = new Bomber(0, 545, 0, new Bomb());
+	private Bomber bomber;
+
 	public Play(Container container) {
 		this.container = container;
+		bomber = new Bomber(0, 545, 0, new Bomb(), container.getGui().getNamePlayer());
 		round = this.container.getGui().getRound();
+//		round = 2;
+//		bomber.setROUND(2);
 		boxList = boxService.getListBox(round);
 		wallList = wallService.getListWall(round);
 		monsterList = monsterService.getAllMonster(round);
@@ -88,7 +92,7 @@ public class Play extends JPanel implements Runnable, ActionListener {
 		jbBack.addActionListener(this);
 		add(jbBack);
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -97,7 +101,7 @@ public class Play extends JPanel implements Runnable, ActionListener {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 //		generalService.drawBackground(g2d);
 		itemService.drawItem(itemList, g2d);
-		bombService.drawBomb(bomber.getBomb(), g2d);		
+		bombService.drawBomb(bomber.getBomb(), g2d);
 		bomberService.drawBomber(bomber, g2d);
 		wallService.drawAllWall(wallList, g2d);
 		boxService.drawAllBox(boxList, g2d);
@@ -126,11 +130,14 @@ public class Play extends JPanel implements Runnable, ActionListener {
 	public void run() {
 		while (IS_RUNNING) {
 			try {
-				Thread.sleep(4);
+				Thread.sleep(7);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(bomber.getROUND() == 1 && bomber.getTimelineRound() == 0 && monsterList.size() == 0) {
+			if (bomber.getName() == null) {
+				bomber.setName(container.getGui().getNamePlayer());
+			}
+			if (bomber.getROUND() == 1 && bomber.getTimelineRound() == 0 && monsterList.size() == 0) {
 				bomber.setTimelineRound(500);
 				bomber.setROUND(2);
 			}
@@ -171,64 +178,73 @@ public class Play extends JPanel implements Runnable, ActionListener {
 			monsterService.move(monsterList, wallList, boxList, bomber.getBomb(), bombService.getFire(bomber), bomber);
 			monsterService.monsterDie(monsterList, bomber);
 			itemService.checkImpactBomberVsItem(itemList, bomber);
-			if (bomberService.checkImpactMonster(bomber, monsterList) == true || bomberService.checkImpactBang(bomber, bomber.getBomb()) == true) {
+			if (bomberService.checkImpactMonster(bomber, monsterList) == true
+					|| bomberService.checkImpactBang(bomber, bomber.getBomb()) == true) {
 				bomberService.bomberDie(bomber, hightScore);
 			}
-			if(bomber.getBomb().getTimeLine() > 0) {
+			if (bomber.getBomb().getTimeLine() > 0) {
 				bomber.getBomb().setTimeLine(bomber.getBomb().getTimeLine() - 1);
-				if(bomber.getBomb().getTimeLine() == 0) {
+				if (bomber.getBomb().getTimeLine() == 0) {
 					bomber.getBomb().setTimeLinebang(100);
-					if(bomber.getItem().getKind() == FIRE) {
-						bomber.getItem().setTimelineFire(100);	
-					}					
+					if (bomber.getItem().getKind() == FIRE) {
+						bomber.getItem().setTimelineFire(100);
+					}
 				}
-			}			
-			if(bomber.getItem().getTimelineFire() > 0) {
-				bomber.getItem().setTimelineFire(bomber.getItem().getTimelineFire() - 1);
-				if(bomber.getItem().getTimelineFire() == 0) bomber.getItem().setKind(0);
 			}
-			if(bomber.getBomb().getTimeLinebang() > 0) {
+			if (bomber.getItem().getTimelineFire() > 0) {
+				bomber.getItem().setTimelineFire(bomber.getItem().getTimelineFire() - 1);
+				if (bomber.getItem().getTimelineFire() == 0)
+					bomber.getItem().setKind(0);
+			}
+			if (bomber.getBomb().getTimeLinebang() > 0) {
 				bombService.destroyBox(boxList, bomber.getBomb());
 				bomber.getBomb().setTimeLinebang(bomber.getBomb().getTimeLinebang() - 1);
 			}
-			if(bomber.getItem().getTimeline() > 0) {
+			if (bomber.getItem().getTimeline() > 0) {
 				bomberService.usesItem(bomber);
-				if(bomber.getItem().getTimeline() == 1) {
+				if (bomber.getItem().getTimeline() == 1) {
 					bomber.setItem(new Item(-100, 700, 4));
 				}
 				bomber.getItem().setTimeline(bomber.getItem().getTimeline() - 1);
 			}
-			
-			if (bomber.getHEART() > 0 && bomber.getTimelineFinish() == 0 && bomber.getROUND() == 2 && monsterList.size() == 0 && bomber.getTimelineRound() == 0) {
+
+			if (bomber.getHEART() > 0 && bomber.getTimelineFinish() == 0 && bomber.getROUND() == 2
+					&& monsterList.size() == 0 && bomber.getTimelineRound() == 0) {
 				bomber.setWIN(1);
 				bomber.setTimelineFinish(500);
 			}
-			
-			if(bomber.getTimelineRound() > 0) {
+
+			if (bomber.getTimelineRound() > 0) {
 				bomber.setTimelineRound(bomber.getTimelineRound() - 1);
-				if(bomber.getTimelineRound() == 0) {
+				if (bomber.getTimelineRound() == 0) {
 					container.getGui().setRound(2);
 					boxList = boxService.getListBox(2);
 					wallList = wallService.getListWall(2);
 					monsterList = monsterService.getAllMonster(2);
-					itemList = itemService.getListItem(2);	
-					
+					itemList = itemService.getListItem(2);
+
 					bomber.setROUND(2);
 				}
 			}
-			if(bomber.getTimelineFinish() > 0) {
-				bomber.setTimelineFinish(bomber.getTimelineFinish() - 1); 
-				if(bomber.getTimelineFinish() == 0) {
-					bomber = new Bomber(0, 545, 0, new Bomb());
+			if (bomber.getTimelineFinish() > 0) {
+				bomber.setTimelineFinish(bomber.getTimelineFinish() - 1);
+				if (bomber.getTimelineFinish() == 0 || bomber.getHEART() <=0) {
+					bomber = new Bomber(0, 545, 0, new Bomb(), container.getGui().getNamePlayer());
 					container.getGui().setRound(1);
 					boxList = boxService.getListBox(1);
 					wallList = wallService.getListWall(1);
 					monsterList = monsterService.getAllMonster(1);
-					itemList = itemService.getListItem(1);	
+					itemList = itemService.getListItem(1);
+					int index = generalService.checkScoreToSaveFile(bomber.getScore(), hightScore);
+					if (index >= -1) {
+						String content = bomber.getName() + " : " + bomber.getScore();
+						List<String> temp = generalService.addContent(hightScore, content, index);
+						generalService.writeFile("src/hight_score/hightScore.txt", temp);
+					}
 					container.setShowMenu();
 				}
 			}
-			
+
 			if (bomber.getHEART() <= 0 && bomber.getTimelineFinish() == 0 && monsterList.size() > 0) {
 				bomber.setLOST(1);
 				bomber.setTimelineFinish(500);
@@ -236,13 +252,12 @@ public class Play extends JPanel implements Runnable, ActionListener {
 			repaint();
 		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if(event.getSource() == jbBack) {
+		if (event.getSource() == jbBack) {
 			container.setShowMenu();
 		}
-		
 	}
-	
+
 }

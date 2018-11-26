@@ -37,7 +37,7 @@ public class BomberServiceImpl implements BomberService {
 			List<Monster> monsterList) {
 		// Random move of monster
 		if (bomber instanceof Monster) {
-			if (((Monster) bomber).getCount() == 1000 || ((Monster) bomber).getTimeDie() > 0) {
+			if (((Monster) bomber).getCount() == 700 || ((Monster) bomber).getTimeDie() > 0) {
 				bomber.setCount(0);
 				return false;
 			}
@@ -115,8 +115,7 @@ public class BomberServiceImpl implements BomberService {
 			break;
 		}
 		case DOWN: {
-			if (bomber.getY() < 550) {
-				bomber.setY(bomber.getY() + 1);
+			if (bomber.getY() < 550) {				
 				if (bomber instanceof Monster) {
 					if (checkImpactBomb(bomber, bomb) == 1) {
 						bomber.setCount(0);
@@ -130,6 +129,7 @@ public class BomberServiceImpl implements BomberService {
 					if (checkImpactBox(bomber, boxList) == 1)
 						return false;
 				}
+				bomber.setY(bomber.getY() + 1);
 				bomber.setY(bomber.getY() - checkImpactWall(bomber, wallList));
 				bomber.setY(bomber.getY() - checkImpactBox(bomber, boxList));
 				bomber.setY(bomber.getY() - checkImpactBomb(bomber, bomb));
@@ -149,8 +149,8 @@ public class BomberServiceImpl implements BomberService {
 	@Override
 	public int checkImpactWall(Figure bomber, List<Wall> wallList) {
 		for (Wall wall : wallList) {
-			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth(), bomber.getHeight());
-			Rectangle rec2 = new Rectangle(wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight());
+			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth()-5, bomber.getHeight()-5);
+			Rectangle rec2 = new Rectangle(wall.getX(), wall.getY(), wall.getWidth()-5, wall.getHeight()-5);
 			if (rec1.intersects(rec2) == true) {
 				return 1;
 			}
@@ -173,8 +173,8 @@ public class BomberServiceImpl implements BomberService {
 	@Override
 	public int checkImpactBox(Figure bomber, List<Box> boxList) {
 		for (Box box : boxList) {
-			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth(), bomber.getHeight());
-			Rectangle rec2 = new Rectangle(box.getX(), box.getY(), box.getWidth(), box.getHeight());
+			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth()-5, bomber.getHeight()-5);
+			Rectangle rec2 = new Rectangle(box.getX(), box.getY(), box.getWidth()-5, box.getHeight()-5);
 			if (rec1.intersects(rec2) == true) {
 				return 1;
 			}
@@ -185,8 +185,8 @@ public class BomberServiceImpl implements BomberService {
 	@Override
 	public boolean checkImpactMonster(Figure bomber, List<Monster> monsterList) {
 		for (Monster monster : monsterList) {
-			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth(), bomber.getHeight());
-			Rectangle rec2 = new Rectangle(monster.getX(), monster.getY(), monster.getWidth(), monster.getHeight());
+			Rectangle rec1 = new Rectangle(bomber.getX(), bomber.getY(), bomber.getWidth()-10, bomber.getHeight()-20);
+			Rectangle rec2 = new Rectangle(monster.getX(), monster.getY(), monster.getWidth()-10, monster.getHeight()-20);
 			if (rec1.intersects(rec2)) {
 				return true;
 			}

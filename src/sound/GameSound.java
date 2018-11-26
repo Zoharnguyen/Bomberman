@@ -14,8 +14,6 @@ public class GameSound {
 	public static final String MONSTER_DIE = "monster_die.wav";
 	public static final String BONG_BANG = "bomb_bang.wav";
 	public static final String ITEM = "item.wav";
-	public static final String WIN = "win.wav";
-	public static final String LOSE = "lose.mid";
 	private HashMap<String, AudioClip> audioMap;
 
 	public GameSound() {
@@ -31,8 +29,6 @@ public class GameSound {
 		putAudio(BOMBER_DIE);
 		putAudio(BONG_BANG);
 		putAudio(ITEM);
-//		putAudio(WIN);
-//		putAudio(LOSE);
 	}
 
 	public void stop() {
@@ -40,8 +36,6 @@ public class GameSound {
 		getAudio(PLAYGAME).stop();
 		getAudio(BOMB).stop();
 		getAudio(BONG_BANG).stop();
-//		getAudio(WIN).stop();
-//		getAudio(LOSE).stop();
 	}
 
 	public void putAudio(String name) {

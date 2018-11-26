@@ -117,7 +117,6 @@ public class GeneralServiceImpl implements GeneralService {
 			InputStreamReader isr = new InputStreamReader(fis);
 			BufferedReader br = new BufferedReader(isr);
 			String line;
-			String content = "";
 			try {
 				while ((line = br.readLine()) != null) {
 					stringList.add(line);
@@ -192,10 +191,16 @@ public class GeneralServiceImpl implements GeneralService {
 		if(index == -1) {
 			temp.add(content);
 		}
-		for (int i = 0; i < stringList.size() - 1; i++) {
-			temp.add(stringList.get(i));
-			if (i == index) {
-				temp.add(content);
+		if(index > -1) {
+			for (int i = 0; i < stringList.size() - 1; i++) {
+				temp.add(stringList.get(i));
+				if (i == index) {
+					temp.add(content);
+				}
+			}
+		} else {
+			for (int i = 0; i < stringList.size(); i++) {
+				temp.add(stringList.get(i));
 			}
 		}
 		return temp;

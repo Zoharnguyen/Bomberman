@@ -8,6 +8,7 @@ public class GUI extends JFrame {
 	public static final int WIDTHJF = 905;
 	public static final int HEIGHTJF = 640;
 	private int round = 1;
+	private String namePlayer;
 
 	public GUI() {
 		setSize(WIDTHJF, HEIGHTJF);
@@ -25,6 +26,14 @@ public class GUI extends JFrame {
 
 	public void setRound(int round) {
 		this.round = round;
+	}
+
+	public String getNamePlayer() {
+		return namePlayer;
+	}
+
+	public void setNamePlayer(String namePlayer) {
+		this.namePlayer = namePlayer;
 	}
 
 }
